@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
  * we'll just extend Symfony's Response in case we
  * Encounter any issues with the response from maxmd
  */
-class Response extends SymfonyResponse
+final class Response extends SymfonyResponse
 {
     /**
      * Force the first parameter content
