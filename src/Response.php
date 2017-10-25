@@ -28,7 +28,7 @@ class Response extends SymfonyResponse implements IResponse
      * @see make
      * @return Symfony\Component\HttpFoundation\Response
      */
-    public static function create($content, $status = 200, $headers = array())
+    public static function create($content = '', $status = 200, $headers = array())
     {
         return static::make($content, $status = 200, $headers = array());
     }
@@ -37,7 +37,7 @@ class Response extends SymfonyResponse implements IResponse
      * Wrap the factory create from symfonyresponse
      * @return Symfony\Component\HttpFoundation\Response
      */
-    public static function make($content, $status = 200, $headers = array())
+    public static function make($content = '', $status = 200, $headers = array())
     {
         return SymfonyResponse::create($content = '', $status = 200, $headers = array());
     }
