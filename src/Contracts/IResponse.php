@@ -4,5 +4,5 @@ namespace Endeavors\MaxMD\Http\Contracts;
 
 interface IResponse
 {
-    function make($response);
+    function make($response, $status = 200, $headers = array());
 }
