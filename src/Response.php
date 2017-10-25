@@ -6,8 +6,8 @@ use Endeavors\MaxMD\Http\Contracts\IResponse;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 /**
- * We'll extend Symfony's Response in case we run into
- * Issues with the response from maxmd
+ * we'll just extend Symfony's Response in case we
+ * Encounter any issues with the response from maxmd
  */
 class Response extends SymfonyResponse implements IResponse
 {
