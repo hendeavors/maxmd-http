@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\JsonResponse as SymfonyJsonResponse;
  * Once again, we'll just extend Symfony's JsonResponse in case we
  * Encounter any issues with the response from maxmd
  */
-class JsonResponse extends SymfonyJsonResponse implements \Endeavors\MaxMD\Http\Contracts\IResponse
+class JsonResponse extends SymfonyJsonResponse
 {
     /**
      * @param $data array|mixed
