@@ -27,9 +27,9 @@ final class JsonResponse extends SymfonyJsonResponse
      */
     public static function create($data = [], $status = 200, $headers = array())
     {
-        return static::create($data, $status, $headers);
+        return static::make($data, $status, $headers);
     }
-    
+
     /**
      * {@inheritdoc}
      */
