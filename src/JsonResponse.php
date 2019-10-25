@@ -2,39 +2,31 @@
 
 namespace Endeavors\MaxMD\Http;
 
-use Symfony\Component\HttpFoundation\JsonResponse as SymfonyJsonResponse;
+use Endeavors\MaxMD\Http\Response;
+use Psr\Http\Message\ResponseInterface;
 
 /**
- * Once again, we'll just extend Symfony's JsonResponse in case we
- * Encounter any issues with the response from maxmd
+ * Get a PSR-7 JsonResponse
  */
-final class JsonResponse extends SymfonyJsonResponse
+final class JsonResponse
 {
     /**
-     * @param $data array|mixed
-     * @param $status int
-     * @param $headers array
+     * Should not be constructed
      */
-    public function __construct($data = [], $status = 200, $headers = array())
+    private function __construct()
     {
-        parent::__construct($data, $status, $headers);
     }
 
     /**
-     * Alias
-     * @see make
-     * {@inheritdoc}
+     * Make a new PSR-7 response
+     * @param  array|mixed             $data
+     * @param  int               $status
+     * @param  array             $headers
+     * @return ResponseInterface
      */
-    public static function create($data = [], $status = 200, $headers = array())
+    public static function make($data = [], int $status = 200, array $headers = []): ResponseInterface
     {
-        return static::make($data, $status, $headers);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function make($data = [], $status = 200, $headers = array())
-    {
-        return SymfonyJsonResponse::create($data, $status, $headers);
+        $headers['Content-Type'] = 'application/json';
+        return Response::make($data, $status, $headers);
     }
 }
