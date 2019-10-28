@@ -2,43 +2,49 @@
 
 namespace Endeavors\MaxMD\Http;
 
-use Endeavors\MaxMD\Http\Contracts\IResponse;
-use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
+use GuzzleHttp\Psr7\Response as Psr7Response;
+use Psr\Http\Message\ResponseInterface;
 
 /**
- * we'll just extend Symfony's Response in case we
- * Encounter any issues with the response from maxmd
+ * Get a PSR-7 JsonResponse
  */
-final class Response extends SymfonyResponse
+final class Response
 {
     /**
-     * Force the first parameter content
-     * @param mixed $content
-     * @param int $status
-     * @param array $headers
-     * @return \Symfony\Component\HttpFoundation\Response
+     * Should not be constructed
      */
-    public function __construct($content, $status = 200, $headers = array())
+    private function __construct()
     {
-        parent::__construct($content, $status, $headers);
     }
 
     /**
-     * Alias
-     * @see make
-     * @return \Symfony\Component\HttpFoundation\Response
+     * Make a new PSR-7 response
+     * @param  array|mixed             $data
+     * @param  int               $status
+     * @param  array             $headers
+     * @return ResponseInterface
      */
-    public static function create($content = '', $status = 200, $headers = array())
+    public static function make($data = [], int $status = 200, array $headers = []): ResponseInterface
     {
-        return static::make($content, $status, $headers);
+        return new Psr7Response($status, $headers, static::getBody($data));
     }
 
-    /**
-     * Wrap the factory create from symfonyresponse
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public static function make($content = '', $status = 200, $headers = array())
+    private static function getBody($data): string
     {
-        return SymfonyResponse::create($content, $status, $headers);
+        $body = '';
+
+        if(!empty($data)) {
+            if(is_string($data)) {
+                $body = $data;
+            } else {
+                $body = json_encode($data);
+            }
+
+            if($body === null) {
+                $body = (string)$data;
+            }
+        }
+
+        return $body;
     }
 }
